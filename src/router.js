@@ -6,6 +6,10 @@ const usuarioController = require('./controllers/usuarios.controller')
 const produtoController = require('./controllers/produtos.controller')
 const pedidoController = require('./controllers/pedidos.controller')
 const loginController = require('./controllers/login.controller')
+const unidadeController = require('./controllers/unidade.controller')
+const grupoController = require('./controllers/grupo.controller')
+const fornecedorController = require('./controllers/fornecedor.controller')
+const permissaoController = require('./controllers/permissao.controller')
 
 //import Middleware
 const usuarioMiddleware = require('./middlewares/usuario.middleware')
@@ -19,15 +23,17 @@ router.get('/',(req, res) => res.status(200).send('aqui um teste '))
 
 
 // USUARIO
-// router.post('/listarUsuarios',usuarioMiddleware.validaListarUsuario,(req, res) => usuarioController.listarUsuarios(req, res))
-router.post('/cadastrarUsuario',(req, res) => usuarioController.criarUsuario(req, res))
-// router.post('/editarUsuario',usuarioMiddleware.validaEditarUsuario,(req, res) => usuarioController.editarUsuario(req, res))
-// router.post('/removerUsuario',usuarioMiddleware.validaRemoverUsuario,(req, res) => usuarioController.removerUsuario(req, res))
+router.post('/listarUsuarios',(req, res) => usuarioController.listarUsuarios(req, res))
+router.post('/cadastrarUsuario',(req, res) => usuarioController.cadastrarUsuario(req, res))
+router.post('/salvarEdicaoUsuario',(req, res) => usuarioController.salvarEdicaoUsuario(req, res))
+router.post('/desativarUsuario',(req, res) => usuarioController.desativarUsuario(req, res))
 
 
 // PRODUTO
-// router.post('/cadastrarProduto',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
+router.post('/cadastrarProduto',(req, res) => produtoController.cadastroProduto(req, res))
 router.post('/listarProdutos',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => produtoController.listarProdutos(req, res))
+router.post('/getProdEdicao', (req, res) => produtoController.getProdEdicao(req, res))
+router.post('/salvarEdicaoProduto', (req, res) => produtoController.salvarEdicaoProduto(req, res))
 // router.post('/editarProduto',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
 
 
@@ -40,6 +46,33 @@ router.post('/listarProdutos',usuarioMiddleware.validaBodyCriarUsuario,(req, res
 
 // // LOGIN
 // router.post('/validarLogin',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
+
+// UNIDADE
+router.post('/cadastrarUnidade',(req, res) => unidadeController.cadastrarUnidade(req, res))
+router.post('/listarUnidades',(req, res) => unidadeController.listarUnidades(req, res))
+router.post('/salvarEdicaoUnidade',(req, res) => unidadeController.salvarEdicaoUnidade(req, res))
+router.post('/desativarUnidade',(req, res) => unidadeController.desativarUnidade(req, res))
+
+//GRUPO
+router.post('/cadastrarGrupo',(req, res) => grupoController.cadastrarGrupo(req, res))
+router.post('/listarGrupos',(req, res) => grupoController.listarGrupos(req, res))
+router.post('/salvarEdicaoGrupo',(req, res) => grupoController.salvarEdicaoGrupo(req, res))
+router.post('/desativarGrupo',(req, res) => grupoController.desativarGrupo(req, res))
+
+//FORNECEDOR
+router.post('/cadastrarFornecedor',(req, res) => fornecedorController.cadastrarFornecedor(req, res))
+router.post('/listarFornecedores',(req, res) => fornecedorController.listarFornecedores(req, res))
+router.post('/salvarEdicaoFornecedor',(req, res) => fornecedorController.salvarEdicaoFornecedor(req, res))
+router.post('/desativarFornecedor',(req, res) => fornecedorController.desativarFornecedor(req, res))
+
+
+//PERMISSAO
+router.post('/cadastrarPermissao',(req, res) => permissaoController.cadastrarPermissao(req, res))
+router.post('/listarPermissoes',(req, res) => permissaoController.listarPermissoes(req, res))
+router.post('/salvarEdicaoPermissao',(req, res) => permissaoController.salvarEditarPermissao(req, res))
+router.post('/desativarPermissao',(req, res) => permissaoController.desativarPermissao(req, res))
+router.post('/getPermissaoPorCod',(req, res) => permissaoController.getPermissaoPorCod(req, res))
+
 
 
 module.exports = router;

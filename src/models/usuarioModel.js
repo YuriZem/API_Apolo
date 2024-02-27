@@ -8,14 +8,20 @@ const listarUsuarios = async (parametros) => { // PRECISO REVISAR ESSA FUNCAO CO
     return usuarios;
 };
 
-const criarUsuario = async(usuario,res) => {
+const cadastrarUsuario = async(usuario,res) => {
     const sql = 'INSERT INTO USUARIOS (USU_NOME,USU_DATA_CADASTRO,USU_DATA_EDICAO,USU_SENHA,USU_PERMISSAO)' + 
                 'VALUES ($1, $2,$3,$4,$5)';
 
-    const dataAtual = 'f'
-    // const dataAtual = funcoes.getDataAtual()
+    // const dataAtual = 'f'
+    const dataAtual = funcoes.getDataAtual()
     
-    const parametros = [usuario.nome,dataAtual,dataAtual,usuario.senha,usuario.permissao]
+    const parametros = [
+        usuario.nome,
+        dataAtual,
+        dataAtual,
+        usuario.senha,
+        usuario.permissao_cod
+    ]
     
     return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
     .then(() => {return 'deu certo'})
@@ -24,17 +30,19 @@ const criarUsuario = async(usuario,res) => {
     console.log('sera q chega aq')
 }
 
-const removerUsuario = async() => {
+const desativarUsuario = async() => {
     // fazer sql
 }
 
-const editarUsuario = async() => {
+const salvarEdicaoUsuario = async() => {
     // fazer sql
 }
+
+
 
 module.exports = {
     listarUsuarios,
-    criarUsuario,
-    editarUsuario,
-    removerUsuario
+    cadastrarUsuario,
+    salvarEdicaoUsuario,
+    desativarUsuario
 }

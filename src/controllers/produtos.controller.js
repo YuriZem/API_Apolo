@@ -3,30 +3,47 @@ prodModel = require('../models/produtoModel')
 
 const listarProdutos = async(req, res) => {
     prodModel.listarProdutos(req.body,res).then(r => {
-              
-        // const arr =  [
-        //     {cod:'1',nome:'coca lata', grupoCod:'1',grupoNome:'refrigerante'},
-        //     {cod:'2',nome:'coca 600', grupoCod:'1',grupoNome:'refrigerante'},
-        //     {cod:'3',nome:'trento', grupoCod:'3',grupoNome:'doces'},
-        //     {cod:'4',nome:'bacon', grupoCod:'4',grupoNome:'carnes'},
-        //     {cod:'5',nome:'tilapia', grupoCod:'4',grupoNome:'carnes'},
-        //     {cod:'6',nome:'fanta lata', grupoCod:'1',grupoNome:'carnes'},
-        //     {cod:'7',nome:'file', grupoCod:'4',grupoNome:'carnes'},
-        //     {cod:'8',nome:'vinho', grupoCod:'5',grupoNome:'vinhos'},
-        // ]
-
-        console.log('aqui deu certo',r)
 
         return res.status(201).json({arrayItens: r});
-
     }).catch(e =>{
         console.log('aqui o de verdade',e)
-        // console.log('aqui oq ',e.error)
         return res.status(400).json({mensagem:'mt erro aq'})     //preciso revisar e fazer um trata erros
     });
 
 }
 
+const cadastroProduto = async(req, res) => {
+    // console.log('aqui chegou ?',req.body)
+
+    prodModel.cadastrarProduto(req.body,res).then(r => {
+        return res.status(201).json({mensagem: 'Produto Salvo com sucesso'})
+    }).catch(e => {
+        return res.status(400).json({mensagemErro: 'Erro Ao salvar Produto'})
+    })
+}
+
+const getProdEdicao = async(req, res) => {
+    // console.log('aqui chegou ?',req.body)
+
+    prodModel.getProdEdicao(req.body,res).then(r => {
+        return res.status(201).json({prod: r})
+    }).catch(e => {
+        return res.status(400).json({mensagemErro: 'Erro Ao salvar Produto'})
+    })
+}
+const salvarEdicaoProduto = async(req, res) => {
+    // console.log('aqui chegou ?',req.body)
+
+    prodModel.salvarEdicaoProduto(req.body,res).then(r => {
+        return res.status(201).json({prod: r})
+    }).catch(e => {
+        return res.status(400).json({mensagemErro: 'Erro Ao salvar Produto'})
+    })
+}
+
 module.exports = {
-    listarProdutos
+    listarProdutos,
+    cadastroProduto,
+    getProdEdicao,
+    salvarEdicaoProduto
 }
