@@ -8,7 +8,7 @@ const corsOptions ={
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
-
+//teste
 app.use(cors(corsOptions))
 
 app.listen(PORT,() => console.log(`Servidor rodando na porta ${PORT}`));
