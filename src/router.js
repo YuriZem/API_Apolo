@@ -10,6 +10,8 @@ const unidadeController = require('./controllers/unidade.controller')
 const grupoController = require('./controllers/grupo.controller')
 const fornecedorController = require('./controllers/fornecedor.controller')
 const permissaoController = require('./controllers/permissao.controller')
+const empresaController = require('./controllers/empresa.controller')
+const estoqueController = require('./controllers/estoque.controller')
 
 //import Middleware
 const usuarioMiddleware = require('./middlewares/usuario.middleware')
@@ -27,24 +29,28 @@ router.post('/listarUsuarios',(req, res) => usuarioController.listarUsuarios(req
 router.post('/cadastrarUsuario',(req, res) => usuarioController.cadastrarUsuario(req, res))
 router.post('/salvarEdicaoUsuario',(req, res) => usuarioController.salvarEdicaoUsuario(req, res))
 router.post('/desativarUsuario',(req, res) => usuarioController.desativarUsuario(req, res))
+router.post('/getInfoUsuario',(req, res) => usuarioController.getInfoUsuario(req, res))
+router.post('/getInfoUsuarioPorToken',(req, res) => usuarioController.getInfoUsuarioPorToken(req, res))
 
 
 // PRODUTO
 router.post('/cadastrarProduto',(req, res) => produtoController.cadastroProduto(req, res))
-router.post('/listarProdutos',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => produtoController.listarProdutos(req, res))
+router.post('/listarProdutos',(req, res) => produtoController.listarProdutos(req, res))
 router.post('/getProdEdicao', (req, res) => produtoController.getProdEdicao(req, res))
 router.post('/salvarEdicaoProduto', (req, res) => produtoController.salvarEdicaoProduto(req, res))
 // router.post('/editarProduto',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
 
 
 // PEDIDO
-// router.post('/criarPedido',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
-// router.post('/listarPedido',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
+router.post('/criarPedido',(req, res) => pedidoController.cadastrarPedido(req, res))
+router.post('/listarPedidos',(req, res) => pedidoController.listarPedidos(req, res))
 // router.post('/editarPedido',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
 // router.post('/alterarStatus',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
 
 
 // // LOGIN
+router.post('/validaLogin',(req, res) => loginController.validarLogin(req, res))
+router.post('/verificaToken',(req, res) => loginController.verificaToken(req, res))
 // router.post('/validarLogin',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
 
 // UNIDADE
@@ -73,6 +79,11 @@ router.post('/salvarEdicaoPermissao',(req, res) => permissaoController.salvarEdi
 router.post('/desativarPermissao',(req, res) => permissaoController.desativarPermissao(req, res))
 router.post('/getPermissaoPorCod',(req, res) => permissaoController.getPermissaoPorCod(req, res))
 
+//EMPRESA 
+router.post('/listarEmpresas',(req, res) => empresaController.listarEmpresas(req, res))
 
+
+// ESTOQUE
+router.post('/ajustaEstoque', (req,res) => estoqueController.ajustaEstoque(req,res))
 
 module.exports = router;

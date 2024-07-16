@@ -3,9 +3,24 @@ const conexao = require('./conexao')
 const listarPermissoes = async(obj,res) => {
     const sql = 'SELECT * FROM PERMISSOES';
 
-    const unidades = await conexao.query(sql)
+    // const unidades = await conexao.query(sql)
 
-    return unidades
+    // return unidades
+
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+            conexao.query(sql, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            if(r.usu_token == obj.token){
+                return res.status(201).json({retorno: result});
+            }else{
+                return res.status(201).json({erro: err});
+            }
+    
+        });
+    });
 }
 
 const cadastrarPermissao= async(obj,res) => {
@@ -22,12 +37,27 @@ const cadastrarPermissao= async(obj,res) => {
     ]
 
     console.log('aqui os parametos', parametros)
-    return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
-    .then(() => {return 'deu certo'})
-    .catch(e => {
-        console.log('aqui o erro',e)
-        throw new Error('Não foi possivel salvar os dados')
-    }) // aqui preciso fazer um trata erros
+    // return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
+    // .then(() => {return 'deu certo'})
+    // .catch(e => {
+    //     console.log('aqui o erro',e)
+    //     throw new Error('Não foi possivel salvar os dados')
+    // }) // aqui preciso fazer um trata erros
+
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+            conexao.query(sql,parametros, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            if(r.usu_token == obj.token){
+                return res.status(201).json({retorno: 'deu certo'});
+            }else{
+                return res.status(201).json({erro: err});
+            }
+    
+        });
+    });
 }
 
 const salvarEdicaoPermissao = async(obj,res) => {
@@ -47,12 +77,26 @@ const salvarEdicaoPermissao = async(obj,res) => {
     ]
 
     console.log('aqui os parametos', parametros)
-    return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
-    .then(() => {return 'deu certo'})
-    .catch(e => {
-        console.log('aqui o erro',e)
-        throw new Error('Não foi possivel salvar os dados')
-    }) // aqui preciso fazer um trata erros
+    // return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
+    // .then(() => {return 'deu certo'})
+    // .catch(e => {
+    //     console.log('aqui o erro',e)
+    //     throw new Error('Não foi possivel salvar os dados')
+    // }) // aqui preciso fazer um trata erros
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+            conexao.query(sql,parametros, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            if(r.usu_token == obj.token){
+                return res.status(201).json({retorno: 'deu certo'});
+            }else{
+                return res.status(201).json({erro: err});
+            }
+    
+        });
+    });
 }
 
 const desativarPermissao = async(obj,res) => {
@@ -64,12 +108,26 @@ const desativarPermissao = async(obj,res) => {
     ]
 
     console.log('aqui os parametos', parametros)
-    return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
-    .then(() => {return 'deu certo'})
-    .catch(e => {
-        console.log('aqui o erro',e)
-        throw new Error('Não foi possivel salvar os dados')
-    }) // aqui preciso fazer um trata erros
+    // return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
+    // .then(() => {return 'deu certo'})
+    // .catch(e => {
+    //     console.log('aqui o erro',e)
+    //     throw new Error('Não foi possivel salvar os dados')
+    // }) // aqui preciso fazer um trata erros
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+            conexao.query(sql,parametros, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            if(r.usu_token == obj.token){
+                return res.status(201).json({retorno: 'deu certo'});
+            }else{
+                return res.status(201).json({erro: err});
+            }
+    
+        });
+    });
 }
 
 const getPermissaoPorCod = async(obj,res) => {
@@ -81,18 +139,32 @@ const getPermissaoPorCod = async(obj,res) => {
     ]
 
     console.log('aqui os parametos', parametros)
-    return await conexao.oneOrNone(sql,parametros)
-    .then((r) => {return r})
-    .catch(e => {
-        console.log('aqui o erro',e)
-        throw new Error('Não foi possivel salvar os dados')
-    }) // aqui preciso fazer um trata erros
+    // return await conexao.oneOrNone(sql,parametros)
+    // .then((r) => {return r})
+    // .catch(e => {
+    //     console.log('aqui o erro',e)
+    //     throw new Error('Não foi possivel salvar os dados')
+    // }) // aqui preciso fazer um trata erros
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+            conexao.query(sql,parametros, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            if(r.usu_token == obj.token){
+                return res.status(201).json({retorno: result});
+            }else{
+                return res.status(201).json({erro: err});
+            }
+    
+        });
+    });
 }
 
 module.exports = {
-cadastrarPermissao,
-desativarPermissao,
-listarPermissoes,
-salvarEdicaoPermissao,
-getPermissaoPorCod
+    cadastrarPermissao,
+    desativarPermissao,
+    listarPermissoes,
+    salvarEdicaoPermissao,
+    getPermissaoPorCod
 }

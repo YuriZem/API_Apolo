@@ -3,18 +3,37 @@ const conexao = require('./conexao')
 const funcoes = require('../services/funcoes.service')
 
 const listarProdutos = async(prod,res) => {
+    return new Promise((result, resolve) => {
+
+
     const sql = 'SELECT * FROM PRODUTOS';
+    console.log('1')
+    conexao.getConnection( function(err) {
+    console.log('2')
 
-    const produtos = await conexao.query(sql)
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+    console.log('3')
 
-    return produtos
+            conexao.query(sql, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            // if(result.usu_token == obj.token){
+            console.log('chegou aqui ')
+                return res.status(201).json({retorno: result});
+            // }else{
+                // return res.status(201).json({erro: err});
+            // }
+    
+        });
+    });
+})
+
 }
-
 const cadastrarProduto = async(prod,res) => {
-    const sql = 'INSERT INTO PRODUTOS (PROD_DESCRICAO, PROD_DATA_CADASTRO, PROD_DATA_EDICAO, PROD_UND, PROD_STATUS, PROD_IMG, PROD_FORN, PROD_GRUPO, PROD_USUARIO) ' +
-                'VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)';
+    const sql = 'INSERT INTO PRODUTOS (PROD_DESCRICAO, PROD_DATA_CADASTRO, PROD_DATA_EDICAO, PROD_UND, PROD_STATUS, PROD_IMG, PROD_FORN, PROD_GRUPO, PROD_USUARIO,CODIGO_BARRAS) ' +
+                'VALUES (?,?,?,?,?,?,?,?,?,?)';
 
-                
     const dataAtual = funcoes.getDataAtual();
 
     const parametros = [
@@ -26,20 +45,32 @@ const cadastrarProduto = async(prod,res) => {
         prod.img,
         Number(prod.forn_cod),
         Number(prod.gp_cod),
-        Number(prod.cod_usuario)
+        Number(prod.cod_usuario),
+        prod.codigo_barras
     ]
 
-    console.log('aqui os parametos', parametros)
-    return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
-    .then(() => {return 'deu certo'})
-    .catch(e => {
-        console.log('aqui o erro',e)
-        throw new Error('Não foi possivel salvar os dados')
-    }) // aqui preciso fazer um trata erros
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+            conexao.query(sql,parametros, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            // if(r.usu_token == obj.token){
+                return res.status(201).json({retorno: 'Deu certo'});
+            // }else{
+            //     return res.status(201).json({erro: err});
+            // }
+    
+        });
+    });
+    // return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
+    // .then(() => {return 'deu certo'})
+    // .catch(e => {
+    //     throw new Error('Não foi possivel salvar os dados')
+    // }) // aqui preciso fazer um trata erros
 }
 
 const getProdEdicao = async (prod,res) => {
-    console.log('aqui esta a INFO', prod)
 
     const sql = ' SELECT prod.PROD_DESCRICAO, prod.PROD_IMG, prod.PROD_STATUS, prod.PROD_DATA_EDICAO, prod.PROD_UND,       ' +
                 ' prod.PROD_COD, forn.FORN_DESCRICAO, forn.FORN_COD, usu.USU_NOME, usu.USU_COD, gp.GP_DESCRICAO, gp.GP_COD ' +
@@ -47,16 +78,29 @@ const getProdEdicao = async (prod,res) => {
                 ' LEFT JOIN FORNECEDORES AS forn ON prod.PROD_FORN = forn.FORN_COD                                         ' +
                 ' LEFT JOIN USUARIOS AS usu ON prod.PROD_USUARIO = usu.USU_COD                                             ' +
                 ' LEFT JOIN GRUPOS AS gp ON prod.PROD_GRUPO = gp.GP_COD                                                    ' +
-                ' WHERE prod.PROD_COD=$1                                                                                   ' ; 
+                ' WHERE prod.PROD_COD= ?                                                                             ' ; 
         
     const parametros = [prod.prod_cod]
 
-    console.log('aqui os parametos', parametros)
-    return await conexao.oneOrNone(sql,parametros).then(r=>r)
-    .catch(e => {
-    console.log('aqui o erro',e)
-    throw new Error('Não foi possivel salvar os dados')
-    }) // aqui preciso fazer um trata erros
+
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+            conexao.query(sql,parametros, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            // if(r.usu_token == obj.token){
+                return res.status(201).json({retorno: result});
+            // }else{
+            //     return res.status(201).json({erro: err});
+            // }
+    
+        });
+    });
+    // return await conexao.oneOrNone(sql,parametros).then(r=>r)
+    // .catch(e => {
+    // throw new Error('Não foi possivel salvar os dados')
+    // }) // aqui preciso fazer um trata erros
 }
 
 const salvarEdicaoProduto = async(prod,res) => {
@@ -65,8 +109,6 @@ const salvarEdicaoProduto = async(prod,res) => {
                 ' WHERE prod_cod = $1                                                            ' ;
                 
     const dataAtual = funcoes.getDataAtual();
-
-    console.log('teste aqui mano',prod)
 
     const parametros = [
         prod.cod,
@@ -77,13 +119,25 @@ const salvarEdicaoProduto = async(prod,res) => {
         prod.gp_cod    
     ]
 
-    console.log('aqui os parametos', parametros)
-    return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
-    .then(() => {return 'deu certo'})
-    .catch(e => {
-        console.log('aqui o erro',e)
-        throw new Error('Não foi possivel salvar os dados')
-    }) // aqui preciso fazer um trata erros
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+            conexao.query(sql,parametros, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            if(r.usu_token == obj.token){
+                return res.status(201).json({retorno: 'deu certo'});
+            }else{
+                return res.status(201).json({erro: err});
+            }
+    
+        });
+    });
+    // return await conexao.oneOrNone(sql,parametros).then(r=>console.log('aqui outro r',r))
+    // .then(() => {return 'deu certo'})
+    // .catch(e => {
+    //     throw new Error('Não foi possivel salvar os dados')
+    // }) // aqui preciso fazer um trata erros
 }
 
 module.exports = {

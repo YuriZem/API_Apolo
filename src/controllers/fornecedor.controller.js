@@ -12,11 +12,8 @@ const cadastrarFornecedor = async(req, res) => {
 }
 
 const listarFornecedores = async(req, res) => {
-    fornecedorModel.listarFornecedores(req.body, res).then(r => {
-        return res.status(201).json({arrayFornecedor: r})
-    }).catch(e => {
-        return res.status(400).json({mensagemErro: 'Erro Ao salvar Fornecedor'})
-    })
+    console.log('çhegou aqui')
+    let a = await fornecedorModel.listarFornecedores(req.body, res)
 }
 
 const salvarEdicaoFornecedor = async(req, res) => {

@@ -21,11 +21,7 @@ const salvarEdicaoUnidade = async(req, res) => {
 }
 
 const listarUnidades = async(req, res) => {
-    unidadeModal.listarUnidades(req.body, res).then(r => {
-        return res.status(201).json({arrayUnidades: r})
-    }).catch(e => {
-        return res.status(400).json({mensagemErro: 'Erro Ao salvar Unidade'})
-    })
+    unidadeModal.listarUnidades(req.body, res)
 }
 
 const desativarUnidade = async(req, res) => {

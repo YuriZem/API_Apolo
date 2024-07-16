@@ -2,8 +2,6 @@ permissaoModal = require('../models/permissaoModel')
 
 
 const cadastrarPermissao = async(req, res) => {
-    console.log('batataS')
-    console.log('saokidnosandasndjasndjki')
     permissaoModal.cadastrarPermissao(req.body,res).then(r => {
         return res.status(201).json({mensagem: 'Produto Salvo com sucesso'})
     }).catch(e => {
