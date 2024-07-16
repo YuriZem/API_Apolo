@@ -35,7 +35,7 @@ const cadastrarProduto = async(prod,res) => {
                 'VALUES (?,?,?,?,?,?,?,?,?,?)';
 
     const dataAtual = funcoes.getDataAtual();
-
+//teste
     const parametros = [
         prod.descricao,
         dataAtual,
