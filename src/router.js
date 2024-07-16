@@ -22,6 +22,7 @@ const loginMiddleware = require('./middlewares/login.middleware')
 
 // rotas de teste
 router.get('/',(req, res) => res.status(200).send('aqui um teste '))
+router.get('/teste',(req, res) => res.status(200).send('aqui um teste '))
 
 
 // USUARIO
