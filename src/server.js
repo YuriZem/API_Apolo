@@ -1,5 +1,5 @@
 const app = require('./app');
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 3334;
 // const PORT = 3333
 
 const cors=require("cors");
