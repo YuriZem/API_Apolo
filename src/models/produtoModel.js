@@ -30,6 +30,36 @@ const listarProdutos = async(prod,res) => {
 })
 
 }
+const getProdCodigoBarras = async(prod,res) => {
+    return new Promise((result, resolve) => {
+
+
+    const sql = 'SELECT * FROM PRODUTOS p where p.CODIGO_BARRAS = ?';
+    console.log('aquio op ',prod.codBarras)
+    const parametros = [prod.codBarras]
+
+    conexao.getConnection( function(err) {
+    console.log('2')
+
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+    console.log('3')
+
+            conexao.query(sql,parametros, function (err, result) {
+             
+            if (err) return res.status(500).json({erro:err});
+
+            // if(result.usu_token == obj.token){
+            console.log('chegou aqui ')
+                return res.status(201).json({result});
+            // }else{
+                // return res.status(201).json({erro: err});
+            // }
+    
+        });
+    });
+})
+
+}
 const cadastrarProduto = async(prod,res) => {
     const sql = 'INSERT INTO PRODUTOS (PROD_DESCRICAO, PROD_DATA_CADASTRO, PROD_DATA_EDICAO, PROD_UND, PROD_STATUS, PROD_IMG, PROD_FORN, PROD_GRUPO, PROD_USUARIO,CODIGO_BARRAS) ' +
                 'VALUES (?,?,?,?,?,?,?,?,?,?)';
@@ -140,9 +170,33 @@ const salvarEdicaoProduto = async(prod,res) => {
     // }) // aqui preciso fazer um trata erros
 }
 
+
+
+
+const vincularCodBarrasComProd = async(prod,res) => {
+
+    console.log('pq aqui ele nao deu certo', prod)
+    const sql = ' UPDATE PRODUTOS SET CODIGO_BARRAS = ?  WHERE PROD_COD = ? ';
+
+    const parametros = [
+        prod.codigo_barras,
+        prod.PROD_COD
+    ]
+
+    conexao.getConnection( function(err) {
+        if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
+        conexao.query(sql,parametros, function (err, result) {
+            if (err) return res.status(500).json({erro:err});
+            return res.status(201).json({retorno: 'Deu certo'});
+        });
+    });
+
+}
 module.exports = {
     listarProdutos,
     cadastrarProduto,
     getProdEdicao,
-    salvarEdicaoProduto
+    salvarEdicaoProduto,
+    getProdCodigoBarras,
+    vincularCodBarrasComProd,
 }

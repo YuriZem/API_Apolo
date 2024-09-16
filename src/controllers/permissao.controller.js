@@ -2,43 +2,23 @@ permissaoModal = require('../models/permissaoModel')
 
 
 const cadastrarPermissao = async(req, res) => {
-    permissaoModal.cadastrarPermissao(req.body,res).then(r => {
-        return res.status(201).json({mensagem: 'Produto Salvo com sucesso'})
-    }).catch(e => {
-        return res.status(400).json({mensagemErro: 'Erro Ao salvar Produto'})
-    })
+    let a = await permissaoModal.cadastrarPermissao(req.body,res)
 }
 
 const listarPermissoes = async(req, res) => {
-    permissaoModal.listarPermissoes(req.body, res).then(r => {
-        return res.status(201).json({arrayPermissoes: r})
-    }).catch(e => {
-        return res.status(400).json({mensagemErro: 'Erro Ao salvar Unidade'})
-    })
+    let a = await permissaoModal.listarPermissoes(req.body, res)
 }
 
 const salvarEditarPermissao = async(req, res) => {
-    permissaoModal.salvarEdicaoPermissao(req.body,res).then(r => {
-        return res.status(201).json({mensagem: 'Unidade Salva com sucesso'})
-    }).catch(e => {
-        return res.status(400).json({mensagemErro: 'Erro Ao salvar Produto'})
-    })
+    let a = await permissaoModal.salvarEdicaoPermissao(req.body,res)
 }
 
 const desativarPermissao = async(req, res) => {
-    permissaoModal.desativarPermissao(req.body, res).then(r => {
-        return res.status(201).json({arrayUnidades: r})
-    }).catch(e => {
-        return res.status(400).json({mensagemErro: 'Erro Ao salvar Unidade'})
-    })
+    let a = await permissaoModal.desativarPermissao(req.body, res)
 }
 
 const getPermissaoPorCod = async(req, res) => {
-    permissaoModal.getPermissaoPorCod(req.body, res).then(r => {
-        return res.status(201).json({permisao: r})
-    }).catch(e => {
-        return res.status(400).json({mensagemErro: 'Erro Ao salvar Unidade'})
-    })
+    let a = await permissaoModal.getPermissaoPorCod(req.body, res)
 }
 
 module.exports = {

@@ -11,15 +11,16 @@ const validarLogin = async(obj,res) => {
             obj.senha,
         ]
 
-        console.log('aba')
+        // console.log('aba')
         
         conexao.getConnection( function(err) {
             if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
             conexao.query(sql,parametros, function (err, result) {
                 // conexao.end();
-            console.log(err)        
+            // console.log(err)        
                 if (err) return res.status(500).json({erro:err});
                 
+                console.log('aqui o usuario', result)
                 // console.log(result)
                 return res.status(201).json({usuario: result});
             });

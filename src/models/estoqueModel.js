@@ -10,13 +10,14 @@ const ajustaEstoque = async(prod,res) => {
 
 const ajustaEstoqueProd = async(prod,res) => {
     return new Promise((result, resolve) => {
-        const sql = 'UPDATE PRODUTOS set quantidade = ? where PROD_COD = ?'
+        const sql = 'UPDATE PRODUTOS set quantidade = ?, ESTOQUES = ? where PROD_COD = ?'
 
         const parametros = [
             prod.prod_quantidade_depois,
+            prod.prod_estoque,
             prod.prod_cod,
         ]
-
+        console.log('aqui os parametros ', prod)
         conexao.getConnection( function(err) {
             if (err) res.status(500).json({erro:err}); //preciso fazer um trata erros
                 conexao.query(sql,parametros, function (err, result) {

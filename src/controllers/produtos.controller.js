@@ -25,6 +25,17 @@ const cadastroProduto = async(req, res) => {
     // })
 }
 
+const vincularCodBarrasComProd = async(req, res) => {
+    // console.log('aqui chegou ?',req.body)
+
+    let a = await prodModel.vincularCodBarrasComProd(req.body,res)
+    // .then(r => {
+    //     return res.status(201).json({mensagem: 'Produto Salvo com sucesso'})
+    // }).catch(e => {
+    //     return res.status(400).json({mensagemErro: 'Erro Ao salvar Produto'})
+    // })
+}
+
 const getProdEdicao = async(req, res) => {
     // console.log('aqui chegou ?',req.body)
 
@@ -44,10 +55,22 @@ const salvarEdicaoProduto = async(req, res) => {
     //     return res.status(400).json({mensagemErro: 'Erro Ao salvar Produto'})
     // })
 }
+const getProdCodigoBarras = async(req, res) => {
+    // console.log('aqui chegou ?',req.body)
+
+    let a = await prodModel.getProdCodigoBarras(req.body,res)
+    // .then(r => {
+    //     return res.status(201).json({prod: r})
+    // }).catch(e => {
+    //     return res.status(400).json({mensagemErro: 'Erro Ao salvar Produto'})
+    // })
+}
 
 module.exports = {
     listarProdutos,
     cadastroProduto,
     getProdEdicao,
-    salvarEdicaoProduto
+    salvarEdicaoProduto,
+    getProdCodigoBarras,
+    vincularCodBarrasComProd
 }

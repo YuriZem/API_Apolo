@@ -39,6 +39,8 @@ router.post('/cadastrarProduto',(req, res) => produtoController.cadastroProduto(
 router.post('/listarProdutos',(req, res) => produtoController.listarProdutos(req, res))
 router.post('/getProdEdicao', (req, res) => produtoController.getProdEdicao(req, res))
 router.post('/salvarEdicaoProduto', (req, res) => produtoController.salvarEdicaoProduto(req, res))
+router.post('/getProdCodigoBarras', (req, res) => produtoController.getProdCodigoBarras(req, res))
+router.post('/vincularCodBarrasComProd', (req, res) => produtoController.vincularCodBarrasComProd(req, res))
 // router.post('/editarProduto',usuarioMiddleware.validaBodyCriarUsuario,(req, res) => usuarioController.criarUsuario(req, res))
 
 

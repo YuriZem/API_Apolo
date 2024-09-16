@@ -20,11 +20,7 @@ const salvarEdicaoGrupo = async(req, res) => {
 }
 
 const listarGrupos = async(req, res) => {
-    grupoModel.listarGrupos(req.body, res).then(r => {
-        return res.status(201).json({arrayGrupo: r})
-    }).catch(e => {
-        return res.status(400).json({mensagemErro: 'Erro Ao salvar Unidade'})
-    })
+    grupoModel.listarGrupos(req.body, res)
 }
 
 const desativarGrupo = async(req, res) => {

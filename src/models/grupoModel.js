@@ -11,11 +11,11 @@ const listarGrupos = async(obj,res) => {
              
             if (err) return res.status(500).json({erro:err});
 
-            if(r.usu_token == obj.token){
+            // if(r.usu_token == obj.token){
                 return res.status(201).json({retorno: result});
-            }else{
-                return res.status(201).json({erro: err});
-            }
+            // }else{
+                // return res.status(201).json({erro: err});
+            // }
     
         });
     });
